@@ -27,3 +27,11 @@ channel.basic_publish(
 print(f"Pagamento enviado: {mensagem}")
 
 connection.close()
+
+try:
+    connection = pika.BlockingConnection(
+        pika.ConnectionParameters(host="localhost", port=5672)
+    )
+except pika.exceptions.AMQPConnectionError:
+    print("Não foi possível conectar ao RabbitMQ.")
+    exit()
